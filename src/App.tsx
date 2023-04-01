@@ -16,12 +16,12 @@ interface LyricsProps {
 const Lyrics = ({ lyrics, audioSrc }: LyricsProps) => {
     const [activeLyricIndex, setActiveLyricIndex] = useState(-1);
     const audioRef = useRef<HTMLAudioElement>(null);
-    const lyricRefs = useRef<RefObject<HTMLDivElement>[] | null>(null);
+    const lyricRefs = useRef<RefObject<HTMLAnchorElement>[] | null>(null);
 
     useEffect(() => {
         // Create refs for the lyric elements
         if (lyrics.length) {
-            lyricRefs.current = lyrics.map(() => React.createRef<HTMLDivElement>());
+            lyricRefs.current = lyrics.map(() => React.createRef<HTMLAnchorElement>());
         }
     }, [lyrics]);
 
@@ -67,13 +67,19 @@ const Lyrics = ({ lyrics, audioSrc }: LyricsProps) => {
 
             <div className="lyrics">
                 {lyrics.map((lyric, index) => (
-                    <div
+                    <a
+                        onClick={() => {
+                            if (audioRef && audioRef.current) {
+                                audioRef.current.currentTime = lyric.start;
+                                audioRef.current.play()
+                            }
+                        }}
                         key={index}
-                        ref={lyricRefs?.current?.[index]}
+                        ref={lyricRefs && lyricRefs.current && lyricRefs.current[index]}
                         className={index === activeLyricIndex ? "active" : ""}
                     >
                         {lyric.text}
-                    </div>
+                    </a>
                 ))}
             </div>
         </div>
