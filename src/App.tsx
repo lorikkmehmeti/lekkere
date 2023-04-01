@@ -1,5 +1,4 @@
 import React, {RefObject, useEffect, useRef, useState} from 'react'
-import ReactLogo from './assets/react.svg'
 import './App.css'
 import ThemeProvider from './providers/theme-provider'
 interface Lyric {

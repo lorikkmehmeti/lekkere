@@ -1,6 +1,5 @@
-import { globalFontFace, globalStyle, style } from "@vanilla-extract/css";
+import { globalFontFace, globalStyle } from "@vanilla-extract/css";
 import { themes } from "./styles/theme";
-import { vars } from "./styles/utilities/variables.css";
 
 const inter = "Inter";
 const Aspekta = "Aspekta Variable";
