@@ -2,8 +2,14 @@ import { globalFontFace, globalStyle } from "@vanilla-extract/css";
 import { themes } from "./styles/theme";
 
 const inter = "Inter";
-const Aspekta = "Aspekta Variable";
+const Aspekta = "Aspekta";
+const Clash = "Clash Display";
 
+
+globalFontFace(Clash, {
+  src: 'url("/ClashDisplay.ttf")',
+  fontDisplay: "swap"
+})
 globalFontFace(inter, {
   src: 'url("/Inter.ttf")',
   fontDisplay: "swap",
@@ -24,8 +30,8 @@ globalStyle("*, *::before, *::after", {
   boxSizing: "border-box",
   color: "currentColor",
 });
-globalStyle("*", { fontFamily: "Inter" });
-
+globalStyle("*", { fontFamily: Aspekta });
+globalStyle("._container", { position: "relative" });
 globalStyle("#root, .App, ._container, html, body", {
   height: "100%",
   background: themes.tokens.colors.background_surface,
@@ -37,7 +43,9 @@ globalStyle(".lyrics > div", {
   fontVariationSettings: "'wght' 400",
   marginBottom: 24,
   lineHeight: "35px",
-  color: "rgba(255,255,255, .6)"
+  color: "rgba(255,255,255, .6)",
+  textTransform: "uppercase",
+  padding: "0 6px"
 });
 
 globalStyle(".lyrics > div.active", {

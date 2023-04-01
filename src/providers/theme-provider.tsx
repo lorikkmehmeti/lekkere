@@ -29,7 +29,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const theme = colorMode === "light" ? themes.light : themes.dark;
 
   const setter = (c: ColorMode) => {
-    console.log(c, "hmmm");
     const theme = c === "light" ? themes.light : themes.dark;
     setColorMode(c);
     document.documentElement.className = "";

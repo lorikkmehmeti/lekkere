@@ -1,6 +1,7 @@
 import React, {RefObject, useEffect, useRef, useState} from 'react'
 import './App.css'
 import ThemeProvider from './providers/theme-provider'
+import {LekkerePlayer} from "./components/Player/player";
 interface Lyric {
     start: number;
     end: number;
@@ -152,9 +153,8 @@ function App() {
     <ThemeProvider>
       <div className="container">
           <Lyrics lyrics={lyrics} audioSrc={audioSrc} />
-          <div className="player-container">
-          </div>
       </div>
+      <LekkerePlayer />
     </ThemeProvider>
   )
 }

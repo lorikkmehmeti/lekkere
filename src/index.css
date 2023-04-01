@@ -1,18 +1,27 @@
 .container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr auto; /* Set the first row to fill available space and the second row to fit its content */
-    overflow: hidden; /* Hide the overflow for the container */
+
+    position: relative;
+    transform: translate3d(0,0,0);
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    /*bottom: 0;*/
+    /*display: grid;*/
+    /*grid-template-columns: 1fr;*/
+    /*grid-template-rows: 1fr auto; !* Set the first row to fill available space and the second row to fit its content *!*/
+    /*overflow: hidden; !* Hide the overflow for the container *!*/
 }
 
+.lyrics {
+    /*overflow-y: auto; !* Enable vertical scrolling *!*/
+    /*padding: 20px;*/
+    margin-bottom: 170px;
+
+    text-align: center;
+}
 .lyrics-container {
-    overflow-y: auto; /* Enable vertical scrolling */
-    padding: 20px;
+    padding-bottom: 1px;
 }
 
 /* Style for the player container */
