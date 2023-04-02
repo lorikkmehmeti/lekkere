@@ -1,6 +1,6 @@
 import {style} from "@vanilla-extract/css";
-import {themes} from "src/styles/theme";
-import {sprinkles} from "src/styles/utilities/utility-styles.css";
+import {themes} from "../../styles/theme";
+import {sprinkles} from "../../styles/utilities/utility-styles.css";
 
 export const player = style({
     transform: "translate3d(0,0,0)",
@@ -13,6 +13,8 @@ export const player = style({
     margin: 0,
     background: themes.tokens.colors.background_surface,
     borderTop: `1px solid ${themes.tokens.colors.border_dark}`,
+    display: "flex",
+    alignItems: "center",
     '@supports': {
         '(backdrop-filter: blur(20px))': {
             background: "rgba(0,0,0, .4)",
@@ -31,7 +33,7 @@ export const PlayerContainer = style([
         }
     }),
     {
-        width: "100%",
+        flex: "none",
         height: "100%",
         position: "relative",
     }

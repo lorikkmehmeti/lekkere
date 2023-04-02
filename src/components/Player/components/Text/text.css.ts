@@ -1,7 +1,7 @@
 import {style} from "@vanilla-extract/css";
-import {themes} from "src/styles/theme";
-import {FONT_SIZE_PROPERTIES} from "src/styles/theme/tokens";
-import {sprinkles} from "src/styles/utilities/utility-styles.css";
+import {sprinkles} from "../../../../styles/utilities/utility-styles.css";
+import {themes} from "../../../../styles/theme";
+import {FONT_SIZE_PROPERTIES} from "../../../../styles/theme/tokens";
 
 export const SongStyle = style([
     sprinkles({
