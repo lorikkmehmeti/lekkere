@@ -1,5 +1,5 @@
 import { createSprinkles, defineProperties } from "@vanilla-extract/sprinkles";
-import { MEDIA_QUERIES, SPACE_PROPERTIES } from "../theme/tokens";
+import {FONT_SIZE_PROPERTIES, MEDIA_QUERIES, SPACE_PROPERTIES} from "../theme/tokens";
 import { vars } from "./variables.css";
 
 const responsiveProperties = defineProperties({
@@ -29,7 +29,7 @@ const responsiveProperties = defineProperties({
     marginRight: SPACE_PROPERTIES,
     borderRadius: vars.borderRadius,
     fontFamily: vars.fontFamily,
-    fontSize: vars.fontSize,
+    fontSize: FONT_SIZE_PROPERTIES,
     lineHeight: vars.lineHeight,
   },
   shorthands: {

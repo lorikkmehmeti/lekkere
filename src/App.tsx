@@ -71,7 +71,7 @@ const Lyrics = ({ lyrics, audioSrc }: LyricsProps) => {
                         onClick={() => {
                             if (audioRef && audioRef.current) {
                                 audioRef.current.currentTime = lyric.start;
-                                audioRef.current.play()
+                                audioRef.current.play().then()
                             }
                         }}
                         key={index}
