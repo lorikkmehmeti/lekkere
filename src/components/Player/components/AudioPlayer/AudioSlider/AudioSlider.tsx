@@ -8,7 +8,6 @@ interface AudioSliderProps {
     seek: (time: number) => void;
 }
 
-
 export const AudioSlider = ({currentTime, durationTime, seek}: AudioSliderProps) => {
     return (
         <Slider.Root className={SliderRoot}

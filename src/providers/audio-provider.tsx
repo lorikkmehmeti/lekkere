@@ -30,7 +30,6 @@ export const AudioPlayer: React.FC<{ src: string, children: React.ReactNode }> =
 
     // Initialize the audio player when the component mounts
     useEffect(() => {
-        console.log('useEffect ran'); // add this line
         const audioElement = new Audio(src);
         audioElement.volume = .2;
         setAudioTrack(audioElement);
@@ -54,12 +53,10 @@ export const AudioPlayer: React.FC<{ src: string, children: React.ReactNode }> =
 
     // Update the current time when the audio is playing
     const handleTimeUpdate = (audioElement: HTMLAudioElement) => {
-        console.log('qituuuuuuuuu', audioElement.currentTime)
         setCurrentTime(audioElement.currentTime);
     };
 
     const handleDuration = (audioElement: HTMLAudioElement) => {
-        // console.log({audioTrack})
         setDurationTime(audioElement!.duration);
     }
 
@@ -80,7 +77,6 @@ export const AudioPlayer: React.FC<{ src: string, children: React.ReactNode }> =
 
     // Set the isSeeking state to false and update the current time when the user finishes seeking
     const handleSeeked = (audioElement: HTMLAudioElement) => {
-
         setIsSeeking(false);
         setCurrentTime(audioElement!.currentTime);
     };
@@ -89,7 +85,7 @@ export const AudioPlayer: React.FC<{ src: string, children: React.ReactNode }> =
 
     // Play the audio when the play function is called
     const play = () => {
-        audioTrack?.play();
+        audioTrack?.play().then();
         handlePlay();
     };
 

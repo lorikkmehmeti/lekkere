@@ -15,6 +15,7 @@ export const player = style({
     borderTop: `1px solid ${themes.tokens.colors.border_dark}`,
     display: "flex",
     alignItems: "center",
+    flexWrap: "wrap",
     '@supports': {
         '(backdrop-filter: blur(20px))': {
             background: "rgba(0,0,0, .4)",
@@ -22,6 +23,21 @@ export const player = style({
         }
     },
 });
+
+export const Button = style({
+    border: "none",
+    background: "transparent",
+    borderRadius: 9999,
+    minWidth: 40,
+    height: 40,
+    padding: 0,
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: themes.tokens.colors.text_primary,
+    cursor: "pointer",
+    transition: "all 200ms ease"
+})
 
 export const PlayerContainer = style([
     sprinkles({
