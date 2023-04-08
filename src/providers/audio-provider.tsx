@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 
-// Create a new context for the audio player
 export const AudioContext = React.createContext<{
     currentTime: number;
     durationTime: number;
@@ -20,7 +19,6 @@ export const AudioContext = React.createContext<{
     },
 });
 
-// Create a new audio player component
 export const AudioPlayer: React.FC<{ src: string, children: React.ReactNode }> = ({src, children}) => {
     const [audioTrack, setAudioTrack] = useState<HTMLAudioElement | null>(null);
     const [currentTime, setCurrentTime] = useState<number>(0);
@@ -31,8 +29,7 @@ export const AudioPlayer: React.FC<{ src: string, children: React.ReactNode }> =
     // Initialize the audio player when the component mounts
     useEffect(() => {
         const audioElement = new Audio(src);
-        audioElement.volume = .2;
-        setAudioTrack(audioElement);
+        setAudioTrack(audioElement)
         audioElement.addEventListener('timeupdate', () => handleTimeUpdate(audioElement));
         audioElement.addEventListener('durationchange', () => handleDuration(audioElement));
         audioElement.addEventListener('play', handlePlay);
@@ -56,6 +53,7 @@ export const AudioPlayer: React.FC<{ src: string, children: React.ReactNode }> =
         setCurrentTime(audioElement.currentTime);
     };
 
+    // Handle Duration time
     const handleDuration = (audioElement: HTMLAudioElement) => {
         setDurationTime(audioElement!.duration);
     }
@@ -81,8 +79,6 @@ export const AudioPlayer: React.FC<{ src: string, children: React.ReactNode }> =
         setCurrentTime(audioElement!.currentTime);
     };
 
-    // Set the duration time when the audio's metadata has been loaded
-
     // Play the audio when the play function is called
     const play = () => {
         audioTrack?.play().then();
@@ -102,8 +98,7 @@ export const AudioPlayer: React.FC<{ src: string, children: React.ReactNode }> =
 
     return (
         <AudioContext.Provider
-            value={{currentTime, durationTime, isPlaying, play, pause, seek}}
-        >
+            value={{currentTime, durationTime, isPlaying, play, pause, seek}}>
             {children}
         </AudioContext.Provider>
     )
