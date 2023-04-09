@@ -15,7 +15,7 @@ interface LyricsProps {
 export const Lyrics = ({ lyrics }: LyricsProps) => {
     const [activeLyricIndex, setActiveLyricIndex] = useState(-1);
     const lyricRefs = useRef<RefObject<HTMLAnchorElement>[] | null>(null);
-    const {currentTime, play, seek} = useContext(
+    const {currentTime, play, seek, ended} = useContext(
         AudioContext
     );
 
@@ -27,9 +27,6 @@ export const Lyrics = ({ lyrics }: LyricsProps) => {
     }, [lyrics]);
 
     useEffect(() => {
-        // const handleTimeUpdate = () => {
-        //
-        // };
 
         const newActiveIndex = lyrics.findIndex(
             (lyric) => currentTime && currentTime >= lyric.start && currentTime <= lyric.end
@@ -37,18 +34,11 @@ export const Lyrics = ({ lyrics }: LyricsProps) => {
         if (newActiveIndex !== activeLyricIndex) {
             setActiveLyricIndex(newActiveIndex);
         }
-
-        // // Add event listener to the audio tag
-        // const audio = audioRef.current;
-        // if (audio) {
-        //     audio.addEventListener("timeupdate", handleTimeUpdate);
-        // }
-        //
-        // return () => {
-        //     // Remove event listener when component unmounts
-        //     audio?.removeEventListener("timeupdate", handleTimeUpdate);
-        // };
-    }, [lyrics, activeLyricIndex, currentTime]);
+        // check if audio has ended and scroll to first lyric
+        if (ended && lyricRefs.current && lyricRefs.current.length) {
+            (lyricRefs.current[0].current as HTMLElement).scrollIntoView({behavior: "smooth", block: "center"})
+        }
+    }, [lyrics, activeLyricIndex, currentTime, ended]);
 
     const scrollToActiveLyric = () => {
         if (lyricRefs.current && activeLyricIndex !== -1) {

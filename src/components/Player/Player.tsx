@@ -3,10 +3,11 @@ import {Artist, SongTitle} from "./components/Text/Text";
 import {AudioSlider} from "./components/AudioPlayer/AudioSlider/AudioSlider";
 import {Button, player, PlayerContainer} from "./Player.css";
 import {AudioContext} from "../../providers/audio-provider";
-import {Pause, Play, SkipBackward, SkipForward, VolumeFilled} from "../../shared/icons";
+import {Pause, Play, SkipBackward, SkipForward} from "../../shared/icons";
+import {VolumeSlider} from "./components/Volume/Volume";
 
 export const LekkerePlayer = () => {
-    const {currentTime, durationTime, isPlaying, play, pause, seek} = useContext(
+    const {currentTime, durationTime, isPlaying, play, pause, seek, setVolume, volume} = useContext(
         AudioContext
     );
 
@@ -31,10 +32,8 @@ export const LekkerePlayer = () => {
                 </div>
                 <AudioSlider currentTime={currentTime} seek={seek} durationTime={durationTime}/>
             </div>
-            <div style={{flex: "none", flexBasis: "240px"}}>
-                <button className={Button}>
-                    <VolumeFilled width={26} height={26}/>
-                </button>
+            <div style={{flex: "none", flexBasis: "240px", display: "inline-flex"}}>
+                <VolumeSlider volume={volume} setVolume={setVolume} />
             </div>
         </div>
     );

@@ -4,6 +4,9 @@ export const AudioContext = React.createContext<{
     currentTime: number;
     durationTime: number;
     isPlaying: boolean;
+    ended: boolean;
+    volume: number;
+    setVolume: (volume: number) => void;
     play: () => void;
     pause: () => void;
     seek: (time: number) => void;
@@ -11,6 +14,9 @@ export const AudioContext = React.createContext<{
     currentTime: 0,
     durationTime: 0,
     isPlaying: false,
+    ended: false,
+    volume: 1,
+    setVolume: () => {},
     play: () => {
     },
     pause: () => {
@@ -25,6 +31,8 @@ export const AudioPlayer: React.FC<{ src: string, children: React.ReactNode }> =
     const [durationTime, setDurationTime] = useState<number>(0);
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
     const [, setIsSeeking] = useState<boolean>(false);
+    const [ended, setEnded] = useState<boolean>(false);
+    const [volume, setVolumeState] = useState<number>(1);
 
     // Initialize the audio player when the component mounts
     useEffect(() => {
@@ -36,6 +44,7 @@ export const AudioPlayer: React.FC<{ src: string, children: React.ReactNode }> =
         audioElement.addEventListener('pause', handlePause);
         audioElement.addEventListener('seeking', handleSeeking);
         audioElement.addEventListener('seeked', () => handleSeeked(audioElement));
+        audioElement.addEventListener('ended', handleEnded);
         return () => {
             audioElement.removeEventListener('timeupdate', () => handleTimeUpdate(audioElement));
             audioElement.removeEventListener('play', handlePlay);
@@ -43,6 +52,7 @@ export const AudioPlayer: React.FC<{ src: string, children: React.ReactNode }> =
             audioElement.removeEventListener('pause', handlePause);
             audioElement.removeEventListener('seeking', handleSeeking);
             audioElement.removeEventListener('seeked', () => handleSeeked(audioElement));
+            audioElement.removeEventListener('ended', handleEnded);
 
             if (audioElement) audioElement.pause();
         };
@@ -60,8 +70,15 @@ export const AudioPlayer: React.FC<{ src: string, children: React.ReactNode }> =
 
     // Set the isPlaying state to true when the audio starts playing
     const handlePlay = () => {
+        setEnded(false)
         setIsPlaying(true);
     };
+
+    // Set volume for the Audio
+    const setVolume = (volume: number) => {
+        audioTrack!.volume = volume;
+        setVolumeState(audioTrack!.volume);
+    }
 
     // Set the isPlaying state to false when the audio is paused
     const handlePause = () => {
@@ -77,6 +94,11 @@ export const AudioPlayer: React.FC<{ src: string, children: React.ReactNode }> =
     const handleSeeked = (audioElement: HTMLAudioElement) => {
         setIsSeeking(false);
         setCurrentTime(audioElement!.currentTime);
+    };
+
+    // Set state for audio when it ends
+    const handleEnded = () => {
+        setEnded(true);
     };
 
     // Play the audio when the play function is called
@@ -98,7 +120,7 @@ export const AudioPlayer: React.FC<{ src: string, children: React.ReactNode }> =
 
     return (
         <AudioContext.Provider
-            value={{currentTime, durationTime, isPlaying, play, pause, seek}}>
+            value={{currentTime, durationTime, isPlaying, play, pause, seek, ended, setVolume, volume}}>
             {children}
         </AudioContext.Provider>
     )

@@ -35,7 +35,9 @@ globalStyle("*, *::before, *::after", {
     boxSizing: "border-box",
     color: "currentColor",
 });
-globalStyle("*", {fontFamily: Switzer});
+globalStyle("*", {
+    fontFamily: Switzer,
+});
 
 
 globalFontFace(Programme, {
@@ -66,7 +68,6 @@ globalStyle(".lyrics > a", {
     marginBottom: 20,
     lineHeight: "32px",
     color: "rgba(255,255,255, .6)",
-    // textTransform: "uppercase",
     padding: "0 8px",
     display: "inline-flex",
     cursor: "pointer"
