@@ -5,6 +5,7 @@ const Inter = "Inter";
 const Aspekta = "Aspekta";
 const Clash = "Clash Display";
 const Switzer = "Switzer";
+const Programme = "Programme2";
 
 globalFontFace(Clash, {
     src: 'url("/ClashDisplay.ttf")',
@@ -34,7 +35,20 @@ globalStyle("*, *::before, *::after", {
     boxSizing: "border-box",
     color: "currentColor",
 });
-globalStyle("*", {fontFamily: Switzer});
+globalStyle("*", {
+    fontFamily: Switzer,
+});
+
+
+globalFontFace(Programme, {
+    src: 'url("/programme.woff2")',
+    fontDisplay: "swap"
+});
+
+globalStyle(".lyrics a", {
+    fontFamily: Programme
+});
+
 globalStyle("._container", {
   position: "relative",
   padding: 0,
@@ -44,7 +58,7 @@ globalStyle("#root, .App, ._container, html, body", {
     padding: 0,
     margin: 0,
     height: "100%",
-    background: themes.tokens.colors.background_surface,
+    background: themes.tokens.colors.background_canvas,
     color: themes.tokens.colors.text_primary,
 });
 
@@ -54,7 +68,6 @@ globalStyle(".lyrics > a", {
     marginBottom: 20,
     lineHeight: "32px",
     color: "rgba(255,255,255, .6)",
-    // textTransform: "uppercase",
     padding: "0 8px",
     display: "inline-flex",
     cursor: "pointer"
@@ -67,6 +80,6 @@ globalStyle(".lyrics", {
 })
 
 globalStyle(".lyrics > a.active", {
-    background: themes.tokens.colors.background_canvas,
-    color: themes.tokens.colors.secondary["500"]
+    color: themes.tokens.colors.background_canvas,
+    background: themes.tokens.colors.secondary["500"]
 })

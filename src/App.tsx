@@ -1,90 +1,9 @@
-import React, {RefObject, useEffect, useRef, useState} from 'react'
+import React from 'react'
 import './App.css'
 import ThemeProvider from './providers/theme-provider'
-import {LekkerePlayer} from "./components/Player/player";
-interface Lyric {
-    start: number;
-    end: number;
-    text: string;
-}
-
-interface LyricsProps {
-    lyrics: Lyric[];
-    audioSrc: string;
-}
-
-const Lyrics = ({ lyrics, audioSrc }: LyricsProps) => {
-    const [activeLyricIndex, setActiveLyricIndex] = useState(-1);
-    const audioRef = useRef<HTMLAudioElement>(null);
-    const lyricRefs = useRef<RefObject<HTMLAnchorElement>[] | null>(null);
-
-    useEffect(() => {
-        // Create refs for the lyric elements
-        if (lyrics.length) {
-            lyricRefs.current = lyrics.map(() => React.createRef<HTMLAnchorElement>());
-        }
-    }, [lyrics]);
-
-    useEffect(() => {
-        const handleTimeUpdate = () => {
-            const currentTime = audioRef.current?.currentTime;
-            const newActiveIndex = lyrics.findIndex(
-                (lyric) => currentTime && currentTime >= lyric.start && currentTime <= lyric.end
-            );
-            if (newActiveIndex !== activeLyricIndex) {
-                setActiveLyricIndex(newActiveIndex);
-            }
-        };
-
-        // Add event listener to the audio tag
-        const audio = audioRef.current;
-        if (audio) {
-            audio.addEventListener("timeupdate", handleTimeUpdate);
-        }
-
-        return () => {
-            // Remove event listener when component unmounts
-            audio?.removeEventListener("timeupdate", handleTimeUpdate);
-        };
-    }, [audioRef, lyrics, activeLyricIndex]);
-
-    const scrollToActiveLyric = () => {
-        if (lyricRefs.current && activeLyricIndex !== -1) {
-            const activeLyricRef = lyricRefs.current[activeLyricIndex].current;
-            if (activeLyricRef) {
-                (activeLyricRef as HTMLElement).scrollIntoView({ behavior: "smooth", block: "center" });
-            }
-        }
-    };
-
-    useEffect(() => {
-        scrollToActiveLyric();
-    }, [activeLyricIndex]);
-
-    return (
-        <div className="lyrics-container">
-            <audio ref={audioRef} src={audioSrc} controls />
-
-            <div className="lyrics">
-                {lyrics.map((lyric, index) => (
-                    <a
-                        onClick={() => {
-                            if (audioRef && audioRef.current) {
-                                audioRef.current.currentTime = lyric.start;
-                                audioRef.current.play().then()
-                            }
-                        }}
-                        key={index}
-                        ref={lyricRefs && lyricRefs.current && lyricRefs.current[index]}
-                        className={index === activeLyricIndex ? "active" : ""}
-                    >
-                        {lyric.text}
-                    </a>
-                ))}
-            </div>
-        </div>
-    );
-};
+import {LekkerePlayer} from "./components/Player/Player";
+import {Lyrics} from "./components/Lyrics/Lyrics";
+import {AudioPlayer} from "./providers/audio-provider";
 
 
 const lyrics = [
@@ -150,19 +69,17 @@ const lyrics = [
     }
 ];
 
-const audioSrc =
-    "https://files.sharpdownload.com/download/uploads/2023/01/The-Weeknd-Ft-Lana-Del-Rey-Stargirl-Interlude-24Naijamuzic-com.mp3?_=1";
-
 function App() {
-
-  return (
-    <ThemeProvider>
-      <div className="container">
-          <Lyrics lyrics={lyrics} audioSrc={audioSrc} />
-      </div>
-      <LekkerePlayer />
-    </ThemeProvider>
-  )
+    return (
+        <ThemeProvider>
+            <AudioPlayer src={'./song.mp3'}>
+                <div className="container">
+                    <Lyrics lyrics={lyrics}/>
+                </div>
+                <LekkerePlayer/>
+            </AudioPlayer>
+        </ThemeProvider>
+    )
 }
 
 export default App
